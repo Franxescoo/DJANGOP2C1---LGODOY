@@ -1,15 +1,27 @@
 <!-- templates/base.html -->
-<!doctype html>
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<title>{% block title %}EcoEnergy{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EcoEnergy{% endblock %}</title>
+    {% bootstrap_css %}
 </head>
-<body>
-<nav>
-<a href="{% url 'dispositivos:inicio' %}">Inicio</a>
-<a href="{% url 'dispositivos:catalogo' %}">Dispositivos</a>
-</nav>
-<main>{% block content %}{% endblock %}</main>
+<body class="container py-4" style="background-color: #faf5ff;">
+
+    <!-- Barra de navegación con estilos morados -->
+    <nav class="mb-4 pb-2 border-bottom d-flex gap-2" style="border-color: #e9d5ff !important;">
+        <a class="btn text-white fw-medium" style="background-color: #7e22ce;" href="{% url 'dispositivos:inicio' %}">Inicio</a>
+        <a class="btn text-white fw-medium" style="background-color: #6b21a8;" href="{% url 'dispositivos:catalogo' %}">Dispositivos</a>
+    </nav>
+
+    <!-- Contenido dinámico -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% bootstrap_javascript %}
 </body>
 </html>
