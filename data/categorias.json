@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nombre": "Climatización",
+    "descripcion": "Equipos de aire acondicionado, calefacción y ventilación industrial"
+  },
+  {
+    "id": 2,
+    "nombre": "Iluminación",
+    "descripcion": "Sistemas de luminarias LED, paneles y reflectores"
+  },
+  {
+    "id": 3,
+    "nombre": "Maquinaria Pesada",
+    "descripcion": "Motores trifásicos, compresores y líneas de ensamblaje"
+  },
+  {
+    "id": 4,
+    "nombre": "Equipos de Cómputo",
+    "descripcion": "Servidores, estaciones de trabajo y periféricos de red"
+  }
+]

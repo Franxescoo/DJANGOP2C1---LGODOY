@@ -10,10 +10,17 @@
 </head>
 <body class="container py-4" style="background-color: #faf5ff;">
 
-    <!-- Barra de navegación con estilos morados -->
-    <nav class="mb-4 pb-2 border-bottom d-flex gap-2" style="border-color: #e9d5ff !important;">
-        <a class="btn text-white fw-medium" style="background-color: #7e22ce;" href="{% url 'dispositivos:inicio' %}">Inicio</a>
-        <a class="btn text-white fw-medium" style="background-color: #6b21a8;" href="{% url 'dispositivos:catalogo' %}">Dispositivos</a>
+    <!-- Barra de navegación -->
+    <nav class="mb-4 pb-3 border-bottom d-flex gap-2" style="border-color: #e9d5ff !important;">
+        <a class="btn text-white fw-medium shadow-sm" style="background-color: #7e22ce;" href="{% url 'dispositivos:inicio' %}">
+            Inicio
+        </a>
+        <a class="btn text-white fw-medium shadow-sm" style="background-color: #6b21a8;" href="{% url 'dispositivos:catalogo' %}">
+            Dispositivos
+        </a>
+        <a class="btn text-white fw-medium shadow-sm" style="background-color: #581c87;" href="{% url 'dispositivos:zonas' %}">
+    Zonas
+</a>
     </nav>
 
     <!-- Contenido dinámico -->

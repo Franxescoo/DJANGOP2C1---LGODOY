@@ -22,10 +22,12 @@ app_name = "dispositivos"
 
 urlpatterns = [
     path("", views.inicio, name="inicio"),
-    path(
-        "zonas/<int:zona_id>/dispositivos/",
-        views.dispositivos_zona,
-        name="por_zona",
-    ),
     path("dispositivos/", views.catalogo, name="catalogo"),
+    
+    # Rutas para las Zonas
+    path("zonas/", views.listar_zonas, name="zonas"),
+    path("zonas/<int:zona_id>/", views.detalle_zona, name="detalle_zona"),
+    
+    # Tu ruta anterior (opcional por si la usas en otro lado)
+    path("zonas/<int:zona_id>/dispositivos/", views.dispositivos_zona, name="por_zona"),
 ]

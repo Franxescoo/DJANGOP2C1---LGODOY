@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nombre": "Área de Producción",
+    "limite_kwh": 450.0
+  },
+  {
+    "id": 2,
+    "nombre": "Oficinas Administrativas",
+    "limite_kwh": 200.0
+  },
+  {
+    "id": 3,
+    "nombre": "Bodega y Logística",
+    "limite_kwh": 120.0
+  },
+  {
+    "id": 4,
+    "nombre": "Sala de Servidores",
+    "limite_kwh": 300.0
+  }
+]
