@@ -1,0 +1,117 @@
+La ia dentro de este trabajo fue utilizada para realizar gran parte del sistema, utilizado para interfaz, corregir errores, validaciones y más
+
+los prompts utilizados son:
+
+Diseña el contenido de catalogo.html para
+
+EcoEnergy.
+
+Usa Bootstrap 5 y hereda de base.html.
+
+Variables disponibles:
+
+- dispositivos: lista con nombre, estado y
+
+consumo_kwh
+
+- total: cantidad de dispositivos
+
+- total_activos: cantidad en estado Activo
+
+Requisitos visuales:
+
+- dos tarjetas de resumen
+
+- tabla responsive
+
+- badge de estado
+
+- estado vacío
+
+No inventes variables, rutas ni lógica Python.
+
+Devuelve solamente el bloque content. 
+
+
+
+
+
+quiero que sea de colores morados 
+
+la ia entrego :
+{% block content %}
+<div class="container py-2">
+    <!-- Encabezado -->
+    <div class="d-flex align-items-center mb-4 pb-2 border-bottom" style="border-color: #e9d5ff !important;">
+        <h1 class="h2 fw-bold mb-0" style="color: #4c1d95;">Catálogo de Dispositivos</h1>
+    </div>
+
+    <!-- Tarjetas de resumen -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6">
+            <div class="card border-0 shadow-sm text-white" style="background: linear-gradient(135deg, #6b21a8, #9333ea);">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-white-50 text-uppercase fw-semibold" style="letter-spacing: 0.5px;">Total Dispositivos</h6>
+                    <h2 class="card-title display-6 fw-bold mb-0">{{ total }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card border-0 shadow-sm text-white" style="background: linear-gradient(135deg, #4c1d95, #7e22ce);">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-white-50 text-uppercase fw-semibold" style="letter-spacing: 0.5px;">Dispositivos Activos</h6>
+                    <h2 class="card-title display-6 fw-bold mb-0">{{ total_activos }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla responsive y estado vacío -->
+    <div class="card border-0 shadow-sm" style="background-color: #faf5ff;">
+        <div class="card-body p-0">
+            {% if dispositivos %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead style="background-color: #581c87; color: #ffffff;">
+                            <tr>
+                                <th scope="col" class="py-3 px-4">Nombre</th>
+                                <th scope="col" class="py-3 px-4">Consumo (kWh)</th>
+                                <th scope="col" class="py-3 px-4">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dispositivo in dispositivos %}
+                                <tr>
+                                    <td class="fw-semibold px-4" style="color: #3b0764;">{{ dispositivo.nombre }}</td>
+                                    <td class="px-4 text-muted">{{ dispositivo.consumo_kwh }} kWh</td>
+                                    <td class="px-4">
+                                        {% if dispositivo.estado == "Activo" %}
+                                            <span class="badge rounded-pill text-white" style="background-color: #7e22ce;">{{ dispositivo.estado }}</span>
+                                        {% else %}
+                                            <span class="badge rounded-pill text-dark" style="background-color: #e9d5ff;">{{ dispositivo.estado }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5 px-3">
+                    <p class="h5 fw-semibold mb-1" style="color: #581c87;">No existen dispositivos disponibles.</p>
+                    <p class="text-muted mb-0 small">Actualmente no hay registros en el catálogo.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+siendo esta la interfaz principal del sistema, luego se fueron corrigiendo temas con codigos dobles y que la ia corrigiera y lo volviera un solo codigo.
+se le solicito a la ia que entrege la informacion para incluir los dispositivos, zonas y catalogos dentro de los json.
+
+solicite que me diera el nombre del dispositivo, consumo y más para realizar la implementación
+realice ligeras modificaciones dentro de lo que la ia entregaba, leyendo y comprobando de que funcionara, quizas deje pasar algun que otro codigo muy tecnico en html, y lo deje pasar por si pasa que quitando ciertas cosas pueda dañar
+la estetica de la interfaz que me agrado.
+
+segun lo que yo he probado y revisado junto a la ia como CHATGPT y Gemini, confirman que el codigo es funcional y cumplen con lo solicitado en el PDF de la FASE 1.
