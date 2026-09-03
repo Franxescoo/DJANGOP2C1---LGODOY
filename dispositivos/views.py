@@ -7,7 +7,6 @@ from .services import cargar_dispositivos
 
 
 def cargar_datos(archivo):
-    """Función para abrir y cargar datos desde la carpeta data/."""
     ruta = os.path.join(settings.BASE_DIR, 'data', archivo)
     if not os.path.exists(ruta):
         return []
@@ -39,11 +38,9 @@ def catalogo(request):
 
 
 def listar_zonas(request):
-    """Muestra todas las tarjetas con las zonas y la cantidad de dispositivos."""
     zonas = cargar_datos('zonas.json')
     dispositivos = cargar_datos('dispositivos.json')
 
-    # Cuenta cuántos dispositivos pertenecen a cada zona
     for zona in zonas:
         zona['total_dispositivos'] = sum(
             1 for d in dispositivos if d.get('zona_id') == zona.get('id')
@@ -53,20 +50,16 @@ def listar_zonas(request):
 
 
 def detalle_zona(request, zona_id):
-    """Muestra métricas, estado de energía y tabla de dispositivos de la zona."""
     zonas = cargar_datos('zonas.json')
     categorias = cargar_datos('categorias.json')
     dispositivos = cargar_datos('dispositivos.json')
 
-    # Busca la zona por su ID; si no existe, genera error 404 controlado
     zona_encontrada = next((z for z in zonas if z.get('id') == zona_id), None)
     if not zona_encontrada:
         raise Http404(f"La zona con ID {zona_id} no fue encontrada.")
 
-    # Diccionario para mapear ID de categoría a su nombre
     nombres_cat = {c.get('id'): c.get('nombre', 'Sin categoría') for c in categorias}
 
-    # Filtra dispositivos de la zona y suma consumos
     mis_dispositivos = []
     consumo_acumulado = 0.0
 
@@ -80,7 +73,6 @@ def detalle_zona(request, zona_id):
                 'consumo_kwh': consumo
             })
 
-    # Regla: ALERTA si supera el límite, NORMAL en caso contrario
     limite = float(zona_encontrada.get('limite_kwh', 0.0))
     if consumo_acumulado > limite:
         estado_energia = "ALERTA"
@@ -102,3 +94,49 @@ def dispositivos_zona(request, zona_id):
     if zona_id != 3:
         return HttpResponse("Zona no encontrada", status=404)
     return HttpResponse(f"Dispositivos de la zona {zona_id}")
+
+
+def resumen_zonas(request):
+    zonas = cargar_datos('zonas.json')
+    dispositivos = cargar_datos('dispositivos.json')
+
+    resumen = []
+    consumo_total_general = 0.0
+
+    for zona in zonas:
+        zona_id = zona.get('id')
+        limite_kwh = float(zona.get('limite_kwh', 0.0))
+
+        dispositivos_de_zona = [
+            d for d in dispositivos if d.get('zona_id') == zona_id
+        ]
+
+        cantidad = len(dispositivos_de_zona)
+        consumo_zona = round(sum(float(d.get('consumo_kwh', 0.0)) for d in dispositivos_de_zona), 2)
+        consumo_total_general += consumo_zona
+
+        if consumo_zona <= limite_kwh:
+            estado_texto = "DENTRO DEL LÍMITE"
+            clase_badge = "bg-success"
+        else:
+            estado_texto = "LÍMITE SUPERADO"
+            clase_badge = "bg-danger"
+
+        resumen.append({
+            'id': zona_id,
+            'nombre': zona.get('nombre'),
+            'dispositivos': cantidad,
+            'consumo': consumo_zona,
+            'limite': limite_kwh,
+            'estado': estado_texto,
+            'clase_badge': clase_badge,
+        })
+
+    contexto = {
+        'total_zonas': len(zonas),
+        'total_dispositivos': len(dispositivos),
+        'consumo_total_general': round(consumo_total_general, 2),
+        'resumen_zonas': resumen,
+    }
+
+    return render(request, 'dispositivos/resumen_zonas.html', contexto)
